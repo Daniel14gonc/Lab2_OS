@@ -10,6 +10,7 @@ int main() {
         execl(path, path, n1, firstSymbol,(char*) NULL);
     }
     else {
+        usleep(500);
         execl(path, path, n2, secondSymbol,(char*) NULL);
     }
     return 0;

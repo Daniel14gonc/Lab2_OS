@@ -93,8 +93,6 @@ int main(int argc, char** argv) {
             write(fd[1], "f", strlen("f") + 1);
             wait(NULL);
             printf("\n%s: Content in shared memory: %s\n", name, ptr);
-
-            usleep(5000);
         }
         shm_unlink(key);
         munmap(ptr, MEMORY_SPACE);
