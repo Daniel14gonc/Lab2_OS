@@ -10,6 +10,7 @@
 #include <sys/stat.h>
 #include <string.h>
 #include <stdlib.h>
+#include <errno.h>
 #define MEMORY_SPACE 4096 * sizeof(char)
 
 int main(int argc, char** argv) {
@@ -38,6 +39,7 @@ int main(int argc, char** argv) {
             close(pipeFd);
         }
         else {
+            printf("%s: Error: %s\n", name, strerror(errno));
             fileDescriptor = shm_open(key,O_RDWR,S_IRUSR|S_IWUSR);
             printf("%s: Shared mem obj already created\n", name);
             int pipeFd = open(myfifo, O_RDONLY);
@@ -95,6 +97,7 @@ int main(int argc, char** argv) {
             usleep(5000);
         }
         shm_unlink(key);
+        munmap(ptr, MEMORY_SPACE);
     }
     else {
         return -1;
